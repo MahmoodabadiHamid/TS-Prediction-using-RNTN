@@ -62,7 +62,7 @@ def train(outputName, datasets, params):
     #teErrors.append(teError)
     
     # Indicate a new training on the result file
-    # = open(outputName + "_train.csv", "a") # Open the file (cursor at the end to not erasing eventual previous results)
+    #resultFile = open(outputName + "_train.csv", "a") # Open the file (cursor at the end to not erasing eventual previous results)
     #resultFile.write("Epoch|TrainCost|TrainAll|TrainRoot|TestCost|TestAll|TestRoot\n") # Record the data for the learning curve (format)
     #resultFile.close()
     
@@ -101,7 +101,7 @@ def train(outputName, datasets, params):
                 gradient = None
             
             # Plot progress every 10% of dataset covered
-            if len(trainingSet)//10 != 0 and nbSampleCovered % (len(trainingSet)//10) == 0:
+            if nbSampleCovered % (len(trainingSet)//1) == 0:
                 print("%d%% of dataset covered (%d/%d)" % ((nbSampleCovered*100 // len(trainingSet) + 1), nbSampleCovered, len(trainingSet)))
             nbSampleCovered += 1
             b+=1
@@ -111,12 +111,12 @@ def train(outputName, datasets, params):
         print("Compute errors...")
         trError, cMatTr = model.computeError(trainingSet)
         print(cMatTr)
-        utils.pltCMatrix(cMatTr , 'Train')
+        #utils.pltCMatrix(cMatTr , 'Train')
         
         teError, cMatTe = model.computeError(testingSet, True)
         print("Test  error: ", teError)
         #input(cMatTe)
-        utils.pltCMatrix(cMatTe, 'Test' )
+        #utils.pltCMatrix(cMatTe, 'Test' )
         
         
         trErrors.append(trError)
@@ -127,9 +127,9 @@ def train(outputName, datasets, params):
         print("Saving model...")
         model.saveModel(outputName) # The function also save the dictionary
         
-        resultFile = open(outputName + "_train.csv", "a") # Open the file (cursor at the end)
-        resultFile.write("%d|%s|%s\n" % (i, trError.toCsv(), teError.toCsv())) # Record the data for the learning curves
-        resultFile.close()
+        #resultFile = open(outputName + "_train.csv", "a") # Open the file (cursor at the end)
+        #resultFile.write("%d|%s|%s\n" % (i, trError.toCsv(), teError.toCsv())) # Record the data for the learning curves
+        #resultFile.close()
         
     # Record the learning curve
     xEpoch = []
@@ -178,8 +178,8 @@ def train(outputName, datasets, params):
     plt.title('Root only')
     plt.xlabel('Epoch')
     plt.ylabel('% of success')
-    
-    plt.savefig(outputName + '_learningCurve.png')
+    plt.show()
+    #plt.savefig(outputName + '_learningCurve.png')
     
     # Return perfs at the end
     #errors = []

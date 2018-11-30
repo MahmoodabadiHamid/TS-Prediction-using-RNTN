@@ -31,6 +31,7 @@ def main(outputName):
     # Loading dataset
     datasets = {}
     datasets['training'] = utils.loadDataset('sp500.csv');
+    
     print("Training loaded !")
     
     datasets['testing'] = utils.loadDataset('sp500.csv');

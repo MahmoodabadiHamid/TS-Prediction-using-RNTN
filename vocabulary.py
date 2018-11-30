@@ -12,9 +12,8 @@ class Word:
     Turple which contain the word and its space representation
     """
     def __init__(self, word, idx):
-        self.string = word        
+        self.string = word
         self.idx = idx # Index of the word inside the L matrix
-
 
 class Vocab:
     def __init__(self, filename=None):
@@ -22,7 +21,6 @@ class Vocab:
         If the parameters is set, it will try to load the dictionary from
         the given filename
         """
-        #print(str(filename))
         self.dictionary = {} # List of Words (dictionary)
         self.currentIdx = 0
         if filename is not None:
@@ -49,6 +47,7 @@ class Vocab:
             found = Word(newWord, self.currentIdx)
             self.dictionary[newWord] = found
             self.currentIdx += 1
+        
         return found
         
     def length(self):

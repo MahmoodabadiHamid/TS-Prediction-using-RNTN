@@ -554,16 +554,7 @@ class ModelError:
         In the current version, it is not possible to plot inside a tree for debugging (crash when
         divide by 0), it is quite easy to correct though if really needed
         """
-        input(':|')
-        print('self.cost:              '+str(self.cost))
-        print('self.nbOfSample:        '+str(self.nbOfSample))
-        print('self.getRegCost():      '+str(self.getRegCost()))
-        print('self.getPercentNodes(): '+str(self.getPercentNodes()))
-        print('self.nbNodeCorrect:     '+str(self.nbNodeCorrect))
-        print('self.nbOfNodes:         '+str(self.nbOfNodes))
-        print('self.getPercentRoot():  '+str(self.getPercentRoot()))
-        print('self.nbRootCorrect:     '+str(self.nbRootCorrect))
-        input('self.nbOfSample:        '+str(self.nbOfSample))
+
         
         return "Cost=%4f | CostReg=%4f | Percent=%2f%% (%d/%d) | Percent(Root)=%2f%% (%d/%d)" % (
             self.cost/self.nbOfSample,

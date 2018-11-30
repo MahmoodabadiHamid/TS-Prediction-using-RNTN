@@ -20,7 +20,7 @@ class Node():
         self.level = None
         self.word  = None
         self.data  = None
-        self.label = None
+        self.label = -1
         self.output= None
 
 
@@ -54,9 +54,16 @@ class Tree:
 
     def createLeaf(self, timeSerie, level):
         leaf = Node()
-        #print((timeSerie.shape))
-        import random
-        leaf.label = random.randint(1,3)#timeSerie['target']
+        #input((timeSerie))
+        if(timeSerie['target'] > timeSerie['Close']):
+            leaf.label = 2
+        elif(timeSerie['target'] == timeSerie['Close']):
+            leaf.label = 1
+        elif(timeSerie['target'] < timeSerie['Close']):
+            leaf.label = 0
+        
+        
+        
         leaf.data = timeSerie.drop('target')
         #leaf.word = timeSerie.drop('target')
         leaf.word = vocabulary.vocab.addWord(str(leaf.data[0]))

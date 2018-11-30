@@ -47,8 +47,6 @@ def loadDataset(filename):
     """
     import pandas as pd
     import os
-    #print(os.getcwd())
-    #print(filename)
     dt = pd.read_csv(filename, header=0)
     
     #lines = dataFile.readlines()
@@ -90,7 +88,7 @@ def pltCMatrix(cMatrix,TrainOrTest):
             plt.text(j, i, format(cMatrix[i, j], '.1f'))
     plt.savefig(path + str(TrainOrTest) + "_cMat.png")
     print('Saving cMat Done!')
-    plt.show()
+    #plt.show()
 
 
 
