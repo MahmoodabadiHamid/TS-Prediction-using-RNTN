@@ -55,13 +55,23 @@ class Tree:
     def createLeaf(self, timeSerie, level):
         leaf = Node()
         #input((timeSerie))
+        n = 0
+        N = 0
+        p = 0
+        
         if(timeSerie['target'] > timeSerie['Close']):
             leaf.label = 2
+            p +=1
         elif(timeSerie['target'] == timeSerie['Close']):
             leaf.label = 1
+            N += 1
         elif(timeSerie['target'] < timeSerie['Close']):
+            n += 1
             leaf.label = 0
-        
+        #print()
+        #print(p)
+        #print(N)
+        #input(n)
         
         
         leaf.data = timeSerie.drop('target')

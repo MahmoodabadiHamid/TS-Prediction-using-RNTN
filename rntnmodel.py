@@ -11,7 +11,7 @@ import pickle
 
 class Model:
 
-    def __init__(self, filename='F:/Local_Disk(D)/video/Codes/M.sc Thesis/RNTN-code/english-RNTN_Original/save/train-adagradResetNbIter=6-learningRate=0.01-miniBatchSize=5-nbEpoch=60-regularisationTerm=1e-05',
+    def __init__(self, filename=None,
         learningRate=0.1,
         randInitMaxValueNN=0.0001,
         regularisationTerm = 0.0001
@@ -22,7 +22,7 @@ class Model:
         # Model parameters
         
         self.wordVectSpace = 25 # World vector size
-        self.nbClass = 5 # 0-4 sentiments
+        self.nbClass = 3 # 1-3 negative, neural, positive
         
         self.regularisationTerm = regularisationTerm # Lambda
         
@@ -120,12 +120,6 @@ class Model:
             tensorResult = np.zeros(self.wordVectSpace)
             for i in range(self.wordVectSpace):
                 tensorResult[i] = inputVect.T.dot(self.V[i]).dot(inputVect) # x' * V * x (Compute the tensor layer)
-                #input(tensorResult)
-                #print('self.wordVectSpace : '+str(self.wordVectSpace))
-                #print('shape input vec : '+str(inputVect.shape))
-                #print('shape input vec T : '+str(inputVect.T.shape))
-                #print('shape V : '+str((self.V).shape))
-                #print('shape resaulr : '+str(tensorResult.shape))
 
                 
             # Compute the regular term
@@ -134,10 +128,7 @@ class Model:
             
             # Store the result for the backpropagation (AFTER the activation function!!)
             node.output = utils.actFct(tensorResult + regularResult)
-            #input(utils.actFct(tensorResult + regularResult))
-            #node.printInd(node.output)
-            #input('here!!!')
-            #node.printInd(node.output.shape)
+
         return node.output
     
     def backpropagate(self, sample):
@@ -305,7 +296,7 @@ class Model:
         
     def computeError(self, dataset, compute = False):
         import numpy as np
-        cMat = np.zeros([5,5])
+        cMat = np.zeros([3,3])
         """
         Evaluate the cost error of the given dataset using the parameters
         Args:
@@ -329,10 +320,7 @@ class Model:
                 self.evaluateSample(sample)
             err, nodeLabel, predictedLabel = self._evaluateCostNode(sample.root, True)
             cMat[nodeLabel, predictedLabel] += 1 
-            #print('here')
             
-            #print(predictedLabel)
-            #input(nodeLabel)
             error += err # Normalize also by number of nodes ?? << Doesn't seems to be the case in the paper
             error.nbOfSample += 1
         
@@ -531,7 +519,7 @@ class ModelGrad:
         self.dL  += gradient.dL # We merge the two lists (Backpropagate the dL gradient on the upper nodes)
         
         return self
-
+    
 class ModelError:
     """
     Struct which contain the differents errors (cost, nb of correct predictions,...)
@@ -554,8 +542,6 @@ class ModelError:
         In the current version, it is not possible to plot inside a tree for debugging (crash when
         divide by 0), it is quite easy to correct though if really needed
         """
-
-        
         return "Cost=%4f | CostReg=%4f | Percent=%2f%% (%d/%d) | Percent(Root)=%2f%% (%d/%d)" % (
             self.cost/self.nbOfSample,
             self.getRegCost(),
@@ -590,6 +576,9 @@ class ModelError:
         """
         Percentage of correctly labelled samples (only root taken)
         """
+        print('nbRootCorrect ',self.nbRootCorrect)
+        print('nbOfSample ',self.nbOfSample)
+        
         assert self.nbOfSample > 0 # Could made the program crash if we try to plot the error while computing it (when debugging the node error)
         return self.nbRootCorrect*100/self.nbOfSample
     

@@ -9,11 +9,8 @@ import random
 import numpy as np
 import matplotlib.pyplot as plt
 import rntnmodel
-import utils
 
 def train(outputName, datasets, params):
-    b=0
-    
     """
     Train the model on the given arguments, record the results
     Args:
@@ -67,6 +64,8 @@ def train(outputName, datasets, params):
     #resultFile.close()
     
     # Main loop
+    cMatTe=[]
+    cMatTr=[]
     for i in range(nbEpoch):
         print("Epoch: %d/%d" % (i+1, nbEpoch))
         
@@ -101,30 +100,22 @@ def train(outputName, datasets, params):
                 gradient = None
             
             # Plot progress every 10% of dataset covered
-            if nbSampleCovered % (len(trainingSet)//1) == 0:
+            if nbSampleCovered % (len(trainingSet)//10) == 0:
                 print("%d%% of dataset covered (%d/%d)" % ((nbSampleCovered*100 // len(trainingSet) + 1), nbSampleCovered, len(trainingSet)))
             nbSampleCovered += 1
-            b+=1
-            #if (b>10):
-             #   break
+        
         # Compute new testing error
-        print("Compute errors...")
-        trError, cMatTr = model.computeError(trainingSet)
-        print(cMatTr)
-        #utils.pltCMatrix(cMatTr , 'Train')
-        
-        teError, cMatTe = model.computeError(testingSet, True)
-        print("Test  error: ", teError)
-        #input(cMatTe)
-        #utils.pltCMatrix(cMatTe, 'Test' )
-        
+        #print("Compute errors...")
+        trError,cMatTr = model.computeError(trainingSet)
+        #print("Train error: ", trError)
+        teError,cMatTe = model.computeError(testingSet, True)
+        #print("Test  error: ", teError)
         
         trErrors.append(trError)
-        
         teErrors.append(teError) # Keep track of the errors for the curves
         
         # Saving the model (at each epoch)
-        print("Saving model...")
+        #print("Saving model...")
         model.saveModel(outputName) # The function also save the dictionary
         
         #resultFile = open(outputName + "_train.csv", "a") # Open the file (cursor at the end)
@@ -145,13 +136,17 @@ def train(outputName, datasets, params):
         teRegCost.append(teErrors[i].getRegCost())
         trAllNodes.append(trErrors[i].getPercentNodes())
         teAllNodes.append(teErrors[i].getPercentNodes())
+        
         trRoot.append(trErrors[i].getPercentRoot())
         teRoot.append(teErrors[i].getPercentRoot())
-    
+    #print(trRoot)
+    #input(teRoot)
     # Create and save the graphs
     # TODO: Add labels 'Training'/'Testing' (even if kind of obvious)
     # TODO: Fixed axis ? (easier to compare)
-    
+
+    print(cMatTr)
+    print(cMatTe)
     plt.figure(1, figsize=(20, 10), dpi=80)
     plt.clf() # Reset
     
@@ -178,9 +173,9 @@ def train(outputName, datasets, params):
     plt.title('Root only')
     plt.xlabel('Epoch')
     plt.ylabel('% of success')
-    plt.show()
-    #plt.savefig(outputName + '_learningCurve.png')
     
+    #plt.savefig(outputName + '_learningCurve.png')
+    plt.show()
     # Return perfs at the end
-    #errors = []
-    return model#, errors
+    errors = []
+    return model, errors

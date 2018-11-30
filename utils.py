@@ -47,24 +47,18 @@ def loadDataset(filename):
     """
     import pandas as pd
     import os
-    dt = pd.read_csv(filename, header=0)
-    
-    #lines = dataFile.readlines()
-    #dataFile.close()
+    dt = pd.read_csv(filename, header=0)    
     dt['target'] = dt['Close'].shift(-1)
     dt = dt.dropna()
-
-    dt = dt.iloc[:6,:]
     dataset = []
-    # Extract rows
-    #for line in lines:
+
+    counter = 1
+    for i in range(len(dt)//7):
+        data = dt.iloc[counter:counter+6,:]
+        counter += 7
+        dataset.append(tree.Tree(data))
     
-    dataset.append(tree.Tree(dt)) # Create the tree for each sentence
-    dataset.append(tree.Tree(dt))
-    dataset.append(tree.Tree(dt))
-    dataset.append(tree.Tree(dt))
-    dataset.append(tree.Tree(dt))
-    dataset.append(tree.Tree(dt))
+        
     return dataset
 
 def pltCMatrix(cMatrix,TrainOrTest):
