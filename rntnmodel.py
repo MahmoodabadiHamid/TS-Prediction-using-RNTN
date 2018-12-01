@@ -334,6 +334,7 @@ class Model:
         """
         Recursivelly compute the error(s)
         """
+        
         error = ModelError()
         
         # Cost at the current node
@@ -358,6 +359,12 @@ class Model:
             error += self._evaluateCostNode(node.r)[0] # Right
         
         #node.printInd("Collective: ", error)
+        #if(True): 
+                #print(node.label)
+                #input(labelPredicted)
+                #if(isRoot):
+                #    print('root')
+                #print()
         return error, node.label, labelPredicted
     
     # Three functions useful for Gradient Checking

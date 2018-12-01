@@ -20,7 +20,7 @@ class Node():
         self.level = None
         self.word  = None
         self.data  = None
-        self.label = -1
+        self.label = 1
         self.output= None
 
 
@@ -37,15 +37,26 @@ class Tree:
     
         
     def parsTree(self, timeSerie, level):
-        #print(len(timeSerie))
+        
         node = Node()
+        node.level = level
+        #input(':|')
+        #print(timeSerie.iloc[-1]['target'])
+        #input(':)')
+        if  (timeSerie.iloc[-1]['target']  > timeSerie.iloc[-2]['target']):
+            node.label = 2
+        elif(timeSerie.iloc[-1]['target']  == timeSerie.iloc[-2]['target']):
+            node.label = 1
+        elif(timeSerie.iloc[-1]['target']  < timeSerie.iloc[-2]['target']):
+            node.label = 0
+        
+         
+
         if (len(timeSerie) == 2):
-            #print('==2')
-            node.l = self.createLeaf(timeSerie.iloc[0],level)
-            node.r = self.createLeaf(timeSerie.iloc[1],level)
+            node.l = self.createLeaf(timeSerie.iloc[0],level+1)
+            node.r = self.createLeaf(timeSerie.iloc[1],level+1)
             
         elif(len(timeSerie) > 2):
-            #print('>2')
             node.r = self.createLeaf(timeSerie.iloc[-1],level)
             node.l = self.parsTree(timeSerie.iloc[:len(timeSerie)-1,:], level+1)
             
@@ -61,17 +72,10 @@ class Tree:
         
         if(timeSerie['target'] > timeSerie['Close']):
             leaf.label = 2
-            p +=1
         elif(timeSerie['target'] == timeSerie['Close']):
             leaf.label = 1
-            N += 1
         elif(timeSerie['target'] < timeSerie['Close']):
-            n += 1
             leaf.label = 0
-        #print()
-        #print(p)
-        #print(N)
-        #input(n)
         
         
         leaf.data = timeSerie.drop('target')

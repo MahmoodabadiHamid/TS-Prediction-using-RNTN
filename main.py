@@ -6,7 +6,7 @@ import utils
 import vocabulary
 
 # Parameters (are arrays for the grid search)
-nbEpoch = 60
+nbEpoch = 10
 miniBatchSize = [5]
 adagradResetNbIter = [6] # Reset every X iterations (0 for never) << does not seem to have that much impact except the performance drop at each reset on the training set
 
