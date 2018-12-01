@@ -51,15 +51,33 @@ def loadDataset(filename):
     dt['target'] = dt['Close'].shift(-1)
     dt = dt.dropna()
     dataset = []
-
     counter = 1
     for i in range(len(dt)//7):
         data = dt.iloc[counter:counter+6,:]
         counter += 7
         dataset.append(tree.Tree(data))
-    
-        
     return dataset
+
+
+def loadDataset2(filename):
+    """
+    Load and return the dataset given in parameter
+    """
+    import pandas as pd
+    import os
+    dt = pd.read_csv(filename, header=0)    
+    dt['target'] = dt['Close'].shift(-1)
+    dt = dt.dropna()
+    dataset = []
+    i = 0
+    for j in range(len(dt)-7):
+        data = dt.iloc[i:i+6,:]
+        i += 1
+        dataset.append(tree.Tree(data))
+    return dataset
+        
+
+    
 
 def pltCMatrix(cMatrix,TrainOrTest):
     import matplotlib.pyplot as plt

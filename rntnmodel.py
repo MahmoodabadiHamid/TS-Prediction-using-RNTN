@@ -22,7 +22,7 @@ class Model:
         # Model parameters
         
         self.wordVectSpace = 25 # World vector size
-        self.nbClass = 3 # 1-3 negative, neural, positive
+        self.nbClass = 2 # 1-2 negative, positive
         
         self.regularisationTerm = regularisationTerm # Lambda
         

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+    #!/usr/bin/env python3
 
 """
 Class which contain a sentence on the form of a tree
@@ -20,7 +20,7 @@ class Node():
         self.level = None
         self.word  = None
         self.data  = None
-        self.label = 1
+        self.label = -1
         self.output= None
 
 
@@ -40,15 +40,15 @@ class Tree:
         
         node = Node()
         node.level = level
-        #input(':|')
-        #print(timeSerie.iloc[-1]['target'])
-        #input(':)')
+       
+        
         if  (timeSerie.iloc[-1]['target']  > timeSerie.iloc[-2]['target']):
-            node.label = 2
-        elif(timeSerie.iloc[-1]['target']  == timeSerie.iloc[-2]['target']):
             node.label = 1
         elif(timeSerie.iloc[-1]['target']  < timeSerie.iloc[-2]['target']):
             node.label = 0
+        #elif(timeSerie.iloc[-1]['target']  == timeSerie.iloc[-2]['target']):
+        #    node.label = 2
+        
         
          
 
@@ -65,17 +65,15 @@ class Tree:
 
     def createLeaf(self, timeSerie, level):
         leaf = Node()
-        #input((timeSerie))
-        n = 0
-        N = 0
-        p = 0
+
         
         if(timeSerie['target'] > timeSerie['Close']):
-            leaf.label = 2
-        elif(timeSerie['target'] == timeSerie['Close']):
             leaf.label = 1
         elif(timeSerie['target'] < timeSerie['Close']):
             leaf.label = 0
+        #elif(timeSerie['target'] == timeSerie['Close']):
+        #    leaf.label = 2
+        
         
         
         leaf.data = timeSerie.drop('target')
@@ -109,7 +107,6 @@ class Tree:
         Recursivelly print the tree
         """
         if(self.root != None):
-            #print("Tree: ", self.root.label)
             self._printTree(self.root, 0)
 
     def _printTree(self, node, level):
