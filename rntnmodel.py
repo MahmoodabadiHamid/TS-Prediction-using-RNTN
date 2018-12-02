@@ -156,6 +156,8 @@ class Model:
         # Compute error coming from the softmax classifier on the current node
         # dE/dz = (t - softmax(z)) Derivative of the cost with respect to the softmax classifier input
         y = self._predictNode(node)
+ 
+        
         y[node.label] -= 1 # = y - t
         dE_dz = y # = (y - t)
         
