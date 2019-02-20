@@ -6,7 +6,7 @@ import utils
 import vocabulary
 
 # Parameters (are arrays for the grid search)
-nbEpoch = 70
+nbEpoch = 100
 miniBatchSize = [5]
 adagradResetNbIter = [6] # Reset every X iterations (0 for never) << does not seem to have that much impact except the performance drop at each reset on the training set
 
@@ -30,11 +30,11 @@ def main(outputName):
     
     # Loading dataset
     datasets = {}
-    datasets['training'] = utils.loadDataset2('sp500_train.csv');
+    datasets['training'] = utils.loadDataset2('sp500_Train_2000.csv');
     
     print("Training loaded !")
     
-    datasets['testing'] = utils.loadDataset2('sp500_test.csv');
+    datasets['testing'] = utils.loadDataset2('sp500_Test_2000.csv');
     print("Testing loaded !")
     datasets['validating'] = utils.loadDataset2('sp500_dev.csv');
     print("Validation loaded !")

@@ -69,6 +69,13 @@ class Node():
         self.label = None
         self.output= None
 
+
+def createLabel():
+    import pandas as pd
+    dt = pd.read_csv('sp500_original.csv', header=0)
+    print(dt.shape) # must print -> (x,y)
+    dt['target'] = dt['Close'].shift(-1) # this line add a feature to dataset
+    print(dt.shape) # must print -> (x,y+1)
         
 def readData():
     dt = pd.read_csv('trees/sp500.csv', header=0)
@@ -87,6 +94,8 @@ def readData():
 
 if __name__ == '__main__':
     a = readData()
+
+
 
 
 
