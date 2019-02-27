@@ -17,11 +17,8 @@ class RNTN(nn.Module):
         self.out = torch.zeros(1,5)
         
     def forward(self, x):
-        
         x =  x.resize(10)
-        
-        
-        self.out[0,0] = torch.mv(self.L1(x.resize(1,10)) , x)
+        self.out[0,0] = torch.mv(self.L1(x).resize(1,10) , x)
         self.out[0,1] = torch.mv(self.L2(x.resize(1,10)) , x)
         self.out[0,2] = torch.mv(self.L3(x.resize(1,10)) , x)
         self.out[0,3] = torch.mv(self.L4(x.resize(1,10)) , x)

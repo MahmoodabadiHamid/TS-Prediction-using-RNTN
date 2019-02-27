@@ -7,56 +7,48 @@ import numpy  as np
 from torch.autograd import Variable
 
 def main():
-    RNTN = Classes.RNTN()
-    RNN  = Classes.RNN()
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+
+    RNTN = Classes.RNTN().to(device)
+    RNN  = Classes.RNN().to(device)
     criterion = nn.CrossEntropyLoss()
     optimizer = optim.SGD(RNTN.parameters(), lr=0.001, momentum=0.9)
-
-    for epoch in range(2):  # loop over the dataset multiple times
     
-            running_loss = 0.0
+    
+    
+    
+    x = torch.randn(10, 1)
+    y = torch.tensor([[0.9, 0.0, 0.1, 0.0, 0.0]])
+
+    
+    
+    
+    
+    
+    criterion = torch.nn.MSELoss()
+    #optimizer = torch.optim.SGD(model.parameters(), lr=0.01)
+    
+    
+    
+    
+    for epoch in range(100):
+        # Forward Propagation
+        y_pred = RNTN(x)# model(x)
+        # Compute and print loss
+        #print(y.shape)
+        #input(y_pred.shape)
         
-            # get the inputs
-            inputs, labels = torch.randn(10,1), torch.zeros(5,1)
-            labels[2] = 1
-
-            # zero the parameter gradients
-            optimizer.zero_grad()
-
-            # forward + backward + optimize
-            outputs = RNTN(inputs)
-            
-            
-            #values, indices = torch.max(inputs, 0)
-            
-            maximum=0
-            for i in range(1,5):
-                if outputs[0, i] > outputs[0, maximum]:
-                    maximum=i
-            one_hot=np.zeros((5,1))
-            one_hot[maximum,0]=1
-            
-            
-            outputs= Variable(torch.from_numpy(one_hot), dtype=torch.float)
-            labels = Variable(labels, dtype=torch.float)
-            
-
-            
-            loss = criterion(outputs, labels)
-            
-            print(type(outputs))
-            input(type(labels))
-            
-            loss.backward()
-            optimizer.step()
-            
-            print(':)')
-            # print statistics
-            running_loss += loss.item()
-            if i % 2000 == 1999:    # print every 2000 mini-batches
-                print('[%d, %5d] loss: %.3f' %
-                      (epoch + 1, i + 1, running_loss / 2000))
-                running_loss = 0.0
+        loss = criterion(y_pred, y)
+        print('epoch: ', epoch,' loss: ', loss.item())
+    
+        # Zero the gradients
+        optimizer.zero_grad()
+        
+        # perform a backward pass (backpropagation)
+        loss.backward(retain_graph=True)
+        
+        # Update the parameters
+        optimizer.step()
 
     print('Finished Training')
  
