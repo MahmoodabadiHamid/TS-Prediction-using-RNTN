@@ -48,7 +48,7 @@ def readData():
     for j in range(1, len(y)): 
         diff.append( y[j] - y[j-1])
     
-    y = diff
+    #y = diff
     print('Done...............')
     pyplot.figure(figsize=(20,8))
     pyplot.subplot(311)
@@ -63,52 +63,6 @@ def readData():
     print(X.shape)
     print(len(y))
     
-    
-    '''
-    for i in range(1, len(X)):
-        for j in X:
-        	X[j][i] = 5#X[i] - X[i - 1]
-        	
-    '''
-
-
-    #series = read_csv('sp500_original.csv', header=0, parse_dates=[0], index_col=0, squeeze=True)
-    # fit linear model
-    
-    #y = numpy.reshape(y, (len(y), 1))
-    '''
-    
-    X = X.values
-    #print(y[0])
-    #print('y shape: ', y.shape) #y.shape:  (4697, 5)
-    model = LinearRegression()
-    print(X.shape)
-    print(y.shape)
-    print('here---------------------------')
-    model.fit(X, y)
-    
-    # calculate trend
-    trend = model.predict(X)
-    
-    # plot trend
-    detrended = numpy.array([y[i]-trend[i] for i in range(0, len(X))])
-    
-    pyplot.figure(figsize=(20,8))
-    pyplot.subplot(311)
-    pyplot.title('Original Data')
-    pyplot.plot(X)
-    pyplot.subplot(312)
-    pyplot.title('Trend')
-    pyplot.plot(trend)
-    pyplot.subplot(313)
-    pyplot.title('Detrended Data')
-    pyplot.plot(detrended)
-    pyplot.savefig('Data')
-    pyplot.show()
-    
-    
-    return detrended
-    '''
     
     
 if __name__ == '__main__':
