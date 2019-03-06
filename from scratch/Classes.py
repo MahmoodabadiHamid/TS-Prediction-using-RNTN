@@ -22,8 +22,7 @@ class RNTN(nn.Module):
         self.out[0,1] = torch.mv(self.L2(x.resize(1,10)) , x)
         self.out[0,2] = torch.mv(self.L3(x.resize(1,10)) , x)
         self.out[0,3] = torch.mv(self.L4(x.resize(1,10)) , x)
-        self.out[0,4] = torch.mv(self.L5(x.resize(1,10)) , x)
-        
+        self.out[0,4] = torch.mv(self.L5(x.resize(1,10)) , x)        
         
         return F.softmax(self.out, dim=1)
 
