@@ -15,7 +15,8 @@ def readDataSet():
     treeDepth = 5
     df = pd.read_csv("dataSet/02_preprocessing_after_normalizing_values.csv", index_col=0)
     count = 0
-    for col in df.columns:
+    for col in df.columns[:int(len(df.columns)/2)]:
+        
         for i in range(int(len(df[col])/vector_len)):
             data = torch.tensor(list(df[col][i*vector_len:i*vector_len+vector_len].values))
             label = 1 if int(bool(df[col][i*vector_len+vector_len] > df[col][i*vector_len+vector_len - 1])) else -1
@@ -59,7 +60,7 @@ def main():
     optimizer = torch.optim.SGD(RNTN.parameters(), lr=0.01)
     trainLossArr = []
     testLossArr = []
-    for epoch in range(20):
+    for epoch in range(100):
         trainLoss = 0.0
         testLoss = 0.0
         for i in range(len(X_train)):
