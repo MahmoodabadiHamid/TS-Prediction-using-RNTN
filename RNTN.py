@@ -15,7 +15,7 @@ def readDataSet():
     treeDepth = 5
     df = pd.read_csv("dataSet/02_preprocessing_after_normalizing_values.csv", index_col=0)
     count = 0
-    for col in df.columns[:1]:
+    for col in df.columns:
         for i in range(int(len(df[col])/vector_len)):
             data = torch.tensor(list(df[col][i*vector_len:i*vector_len+vector_len].values))
             label = 1 if int(bool(df[col][i*vector_len+vector_len] > df[col][i*vector_len+vector_len - 1])) else -1
