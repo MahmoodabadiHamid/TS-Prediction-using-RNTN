@@ -3,11 +3,12 @@ In this project, we are going to apply RNTN method to predict stock market time 
 
 ### Prerequisites ###
 
- Markup:1. python 3.x
-        2. pytorch 
- 	3. Numpy
- 	4. pandas
- 	5. sklearn
+1. python 3.x
+
+2. pytorch 
+3. Numpy
+4. pandas
+5. sklearn
 
 ### Runnning the tests ###
 Run RNTN.py
