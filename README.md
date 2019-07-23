@@ -14,7 +14,7 @@ In this project, we are going to apply RNTN method to predict stock market time 
 Run RNTN.py
 
 
-### Functions definition ###
+### ***Functions definition*** ###
 ## RNTN.py ##
 #### readDataSet() ####
 This function read the time series dataset from a csv file and reshape it to tree form then return a list of trees
