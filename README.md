@@ -1,5 +1,7 @@
 # Time Series Prediction Using RNTN Method #
-In this project, we are going to apply RNTN method to predict stock market time series.
+In this project, we are going to apply RNTN model to predict stock market time series.
+RNTN mdoel proposed by Socher et al. in the paper Recursive Deep Models for Semantic Compositionality Over a Sentiment Treebank 
+(Link to paper: https://nlp.stanford.edu/~socherr/EMNLP2013_RNTN.pdf)
 
 ### Prerequisites ###
 
