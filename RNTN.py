@@ -15,6 +15,7 @@ def readDataSet():
     treeDepth = 5
     df = pd.read_csv("dataSet/02_preprocessing_after_normalizing_values.csv", index_col=0)
     count = 0
+    print("creatingTrees")
     for col in df.columns[:20]:
         
         for i in range(int(len(df[col])/vector_len)):
@@ -25,7 +26,9 @@ def readDataSet():
     trees = []
     for i in range(int(len(dataSet)/ treeDepth)):
         trees.append(Tree(dataSet[i*treeDepth: i*treeDepth+treeDepth]))
+    print("Number of trees: ", len(trees))
     print('Done!')
+    
     return trees
 
 
